@@ -107,10 +107,9 @@ type NodeStatsIndicesResponse struct {
 	Merges       NodeStatsIndicesMergesResponse
 	Get          NodeStatsIndicesGetResponse
 	Search       NodeStatsIndicesSearchResponse
-	FieldData    NodeStatsIndicesCacheResponse `json:"fielddata"`
-	FilterCache  NodeStatsIndicesCacheResponse `json:"filter_cache"`
-	QueryCache   NodeStatsIndicesCacheResponse `json:"query_cache"`
-	RequestCache NodeStatsIndicesCacheResponse `json:"request_cache"`
+	FieldData    NodeStatsIndicesFieldDataResponse    `json:"fielddata"`
+	QueryCache   NodeStatsIndicesQueryCacheResponse   `json:"query_cache"`
+	RequestCache NodeStatsIndicesRequestCacheResponse `json:"request_cache"`
 	Flush        NodeStatsIndicesFlushResponse
 	Segments     NodeStatsIndicesSegmentsResponse
 	Refresh      NodeStatsIndicesRefreshResponse
@@ -186,7 +185,12 @@ type NodeStatsIndicesFlushResponse struct {
 	Time  int64 `json:"total_time_in_millis"`
 }
 
-type NodeStatsIndicesCacheResponse struct {
+type NodeStatsIndicesFieldDataResponse struct {
+	Evictions  int64 `json:"evictions"`
+	MemorySize int64 `json:"memory_size_in_bytes"`
+}
+
+type NodeStatsIndicesQueryCacheResponse struct {
 	Evictions  int64 `json:"evictions"`
 	MemorySize int64 `json:"memory_size_in_bytes"`
 	CacheCount int64 `json:"cache_count"`
@@ -194,6 +198,13 @@ type NodeStatsIndicesCacheResponse struct {
 	HitCount   int64 `json:"hit_count"`
 	MissCount  int64 `json:"miss_count"`
 	TotalCount int64 `json:"total_count"`
+}
+
+type NodeStatsIndicesRequestCacheResponse struct {
+	Evictions  int64 `json:"evictions"`
+	MemorySize int64 `json:"memory_size_in_bytes"`
+	HitCount   int64 `json:"hit_count"`
+	MissCount  int64 `json:"miss_count"`
 }
 
 // NodeStatsOSResponse is a representation of a  operating system stats, load average, mem, swap

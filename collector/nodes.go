@@ -125,126 +125,6 @@ func NewNodes(logger log.Logger, client *http.Client, url *url.URL, all bool) *N
 				Labels: defaultNodeLabelValues,
 			},
 			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "fielddata_total_count"),
-					"Field data total count",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FieldData.TotalCount)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "fielddata_hit_count"),
-					"Field data hit count",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FieldData.HitCount)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "fielddata_miss_count"),
-					"Field data miss count",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FieldData.MissCount)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "fielddata_hit_rate"),
-					"Field data hit rate",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FieldData.HitCount) / float64(node.Indices.FieldData.TotalCount) * 100
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.GaugeValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "filter_cache_memory_size_bytes"),
-					"Filter cache memory usage in bytes",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FilterCache.MemorySize)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "filter_cache_evictions"),
-					"Evictions from filter cache",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FilterCache.Evictions)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "filter_cache_total_count"),
-					"Filter cache total count",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FilterCache.TotalCount)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "filter_cache_hit_count"),
-					"Filter cache hit count",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FilterCache.HitCount)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "filter_cache_miss_count"),
-					"Filter cache miss count",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FilterCache.MissCount)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "filter_cache_hit_rate"),
-					"Filter cache hit rate",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.FilterCache.HitCount) / float64(node.Indices.FilterCache.TotalCount) * 100
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, "indices", "query_cache_memory_size_bytes"),
@@ -317,6 +197,31 @@ func NewNodes(logger log.Logger, client *http.Client, url *url.URL, all bool) *N
 				Labels: defaultNodeLabelValues,
 			},
 			{
+				Type: prometheus.CounterValue,
+				Desc: prometheus.NewDesc(
+					prometheus.BuildFQName(namespace, "indices", "query_cache_size"),
+					"Query cache size",
+					defaultNodeLabels, nil,
+				),
+				Value: func(node NodeStatsNodeResponse) float64 {
+					return float64(node.Indices.QueryCache.CacheSize)
+				},
+				Labels: defaultNodeLabelValues,
+			},
+			{
+				Type: prometheus.CounterValue,
+				Desc: prometheus.NewDesc(
+					prometheus.BuildFQName(namespace, "indices", "query_cache_count"),
+					"Query cache count",
+					defaultNodeLabels, nil,
+				),
+				Value: func(node NodeStatsNodeResponse) float64 {
+					return float64(node.Indices.QueryCache.CacheCount)
+				},
+				Labels: defaultNodeLabelValues,
+			},
+
+			{
 				Type: prometheus.GaugeValue,
 				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, "indices", "request_cache_memory_size_bytes"),
@@ -343,18 +248,6 @@ func NewNodes(logger log.Logger, client *http.Client, url *url.URL, all bool) *N
 			{
 				Type: prometheus.CounterValue,
 				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "request_cache_total_count"),
-					"Request cache total count",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.RequestCache.TotalCount)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
 					prometheus.BuildFQName(namespace, "indices", "request_cache_hit_count"),
 					"Request cache hit count",
 					defaultNodeLabels, nil,
@@ -373,18 +266,6 @@ func NewNodes(logger log.Logger, client *http.Client, url *url.URL, all bool) *N
 				),
 				Value: func(node NodeStatsNodeResponse) float64 {
 					return float64(node.Indices.RequestCache.MissCount)
-				},
-				Labels: defaultNodeLabelValues,
-			},
-			{
-				Type: prometheus.CounterValue,
-				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "request_cache_hit_rate"),
-					"Request cache hit rate",
-					defaultNodeLabels, nil,
-				),
-				Value: func(node NodeStatsNodeResponse) float64 {
-					return float64(node.Indices.RequestCache.HitCount) / float64(node.Indices.RequestCache.TotalCount) * 100
 				},
 				Labels: defaultNodeLabelValues,
 			},
