@@ -199,8 +199,8 @@ func NewNodes(logger log.Logger, client *http.Client, url *url.URL, all bool) *N
 			{
 				Type: prometheus.CounterValue,
 				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "query_cache_size"),
-					"Query cache size",
+					prometheus.BuildFQName(namespace, "indices", "query_cache_cache_size"),
+					"Query cache cache size",
 					defaultNodeLabels, nil,
 				),
 				Value: func(node NodeStatsNodeResponse) float64 {
@@ -211,8 +211,8 @@ func NewNodes(logger log.Logger, client *http.Client, url *url.URL, all bool) *N
 			{
 				Type: prometheus.CounterValue,
 				Desc: prometheus.NewDesc(
-					prometheus.BuildFQName(namespace, "indices", "query_cache_count"),
-					"Query cache count",
+					prometheus.BuildFQName(namespace, "indices", "query_cache_cache_count"),
+					"Query cache cache count",
 					defaultNodeLabels, nil,
 				),
 				Value: func(node NodeStatsNodeResponse) float64 {
